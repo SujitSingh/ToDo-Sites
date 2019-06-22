@@ -1,8 +1,17 @@
 const express = require('express');
 const app = express();
-const { PORT } = require('./env-config');
+const { PORT, DB_PATH } = require('./env-config');
+const mongoose = require('mongoose');
+
+mongoose.connect(DB_PATH, { useNewUrlParser: true }).then(
+  success => { console.log('DB connected') },
+  err => { console.log('DB connection error') },
+);
 
 const todoRoutes = require('./api/routes/todo-routes');
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/todo', todoRoutes);
 
