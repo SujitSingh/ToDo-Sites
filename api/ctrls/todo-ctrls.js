@@ -60,16 +60,17 @@ handlers.addItem = (req, res, next) => {
 
 handlers.updateItem = (req, res, next) => {
   let id = req.body.id;
-  PostModel.updateOne({ '_id': id },
+  PostModel.findOneAndUpdate({ '_id': id },
     { $set: {
         message: req.body.message,
         complete: req.body.complete,
     } },
+    { returnOriginal: false }
   ).then (
     result => {
-      if(result.n && result.nModified) {
+      if (result) {
         res.status(200).send({
-          message: 'Item updated successfully',
+          ...result.toJSON(),
           success: true
         });
       } else {
