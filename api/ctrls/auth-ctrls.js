@@ -1,4 +1,8 @@
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const UserModel = require('../modals/User');
+
+const { JWT_SECRET, TOKEN_EXPIRY_TIME } = require('../../env-config');
 
 const handlers = {};
 
@@ -51,11 +55,87 @@ handlers.signUp = (req, res, next) => {
 };
 
 handlers.logIn = (req, res, next) => {
-
+  const email = req.body.email;
+  const password = req.body.password;
+  UserModel.findOne({ 'email': email }).then(
+    user => {
+      try {
+        if (user) {
+          bcrypt.compare(password, user.password).then(
+            match => {
+              if (match) {
+                const payload = {
+                  email: email,
+                  id: user.id
+                };
+                const options = {
+                  expiresIn: TOKEN_EXPIRY_TIME
+                };
+                const token = jwt.sign(payload, JWT_SECRET, options);
+                res.status(200).send({
+                  email: user.email,
+                  name: user.name,
+                  token: token,
+                  success: true 
+                });
+              } else {
+                throw {
+                  message: 'Invalid user email/password'
+                }
+              }
+            }
+          ).catch(error => {
+            res.status(500).send({
+              error: error.message,
+              success: false 
+            });
+          });
+        } else {
+          throw {
+            message: 'Invalid user email/password'
+          }
+        }
+      } catch(error) {
+        res.status(401).send({
+          message: error.message,
+          success: false 
+        });
+      }
+    }
+  ).catch(error => {
+    res.status(500).send({
+      error: error.message,
+      success: false 
+    });
+  });
 };
 
 handlers.logOut = (req, res, next) => {
 
+};
+
+handlers.validateToken = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+  try {
+    if (authHeader) {
+      const token = authHeader.split(' ')[1];
+      const options = {
+        expiresIn: TOKEN_EXPIRY_TIME,
+      };
+      let decoded = jwt.verify(token, JWT_SECRET, options);
+      req.decoded = decoded;
+      next();
+    } else {
+      throw {
+        message: 'Unauthorized'
+      }
+    }
+  } catch(error) {
+    res.status(401).send({
+      error: error.message,
+      success: false 
+    });
+  }
 };
 
 // export functions

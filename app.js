@@ -10,12 +10,13 @@ mongoose.connect(DB_PATH, { useNewUrlParser: true }).then(
 
 const authRoutes = require('./api/routes/auth-routes');
 const todoRoutes = require('./api/routes/todo-routes');
+const authCtrls = require('./api/ctrls/auth-ctrls');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/auth', authRoutes);
-app.use('/api/todo', todoRoutes);
+app.use('/api/todo', authCtrls.validateToken, todoRoutes);
 
 app.use((req, res, next) => {
   res.status(404).json({
