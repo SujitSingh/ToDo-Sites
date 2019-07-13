@@ -73,6 +73,7 @@ handlers.logIn = (req, res, next) => {
                 };
                 const token = jwt.sign(payload, JWT_SECRET, options);
                 res.status(200).send({
+                  id: user.id,
                   email: user.email,
                   name: user.name,
                   token: token,
