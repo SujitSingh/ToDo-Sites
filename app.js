@@ -8,11 +8,13 @@ mongoose.connect(DB_PATH, { useNewUrlParser: true }).then(
   err => { console.log('DB connection error') },
 );
 
+const authRoutes = require('./api/routes/auth-routes');
 const todoRoutes = require('./api/routes/todo-routes');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use('/api/auth', authRoutes);
 app.use('/api/todo', todoRoutes);
 
 app.use((req, res, next) => {

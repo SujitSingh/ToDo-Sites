@@ -5,4 +5,5 @@ module.exports = {
   DB_PATH: process.env.DB_PATH,
   DB_USER: process.env.DB_USER,
   DB_PASS: process.env.DB_PASS,
+  SALT_ROUNDS: parseInt(process.env.SALT_ROUNDS)
 };
