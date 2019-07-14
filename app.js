@@ -1,7 +1,7 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const app = express();
 const { PORT, DB_PATH } = require('./env-config');
-const mongoose = require('mongoose');
 
 mongoose.connect(DB_PATH, { useNewUrlParser: true }).then(
   success => { console.log('DB connected') },

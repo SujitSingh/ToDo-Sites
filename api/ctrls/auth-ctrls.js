@@ -10,24 +10,25 @@ handlers.signUp = (req, res, next) => {
   let email = req.body.email;
   let password = req.body.password;
   let name = req.body.name;
+  let isAdmin = req.body.isAdmin;
 
   try {
     if (email && password && name) {
       const newUser = new UserModel({
-        email, password, name
+        email, password, name, isAdmin
       });
       UserModel.findOne({ 'email': email }).then(
         result => {
           if (!result) {
             newUser.save().then(
               success => {
-                res.status(200).send({
+                res.status(201).send({
                   message: 'User created successfully',
                   success: true
                 });
               }
             ).catch(error => {
-              res.status(500).send({
+              res.status(400).send({
                 message: error.message,
                 success: false
               });
@@ -47,7 +48,7 @@ handlers.signUp = (req, res, next) => {
       }
     }
   } catch(error) {
-    res.status(500).send({
+    res.status(400).send({
       message: error.message,
       success: false
     });
@@ -66,17 +67,19 @@ handlers.logIn = (req, res, next) => {
               if (match) {
                 const payload = {
                   email: email,
-                  id: user.id
+                  id: user.id,
+                  isAdmin: user.isAdmin
                 };
                 const options = {
                   expiresIn: TOKEN_EXPIRY_TIME
                 };
                 const token = jwt.sign(payload, JWT_SECRET, options);
-                res.status(200).send({
+                res.send({
                   id: user.id,
                   email: user.email,
                   name: user.name,
                   token: token,
+                  isAdmin: user.isAdmin,
                   success: true 
                 });
               } else {
@@ -86,7 +89,7 @@ handlers.logIn = (req, res, next) => {
               }
             }
           ).catch(error => {
-            res.status(500).send({
+            res.status(400).send({
               message: error.message,
               success: false 
             });
@@ -104,16 +107,14 @@ handlers.logIn = (req, res, next) => {
       }
     }
   ).catch(error => {
-    res.status(500).send({
+    res.status(400).send({
       message: error.message,
       success: false 
     });
   });
 };
 
-handlers.logOut = (req, res, next) => {
-
-};
+handlers.logOut = (req, res, next) => { };
 
 handlers.validateToken = (req, res, next) => {
   const authHeader = req.headers.authorization;
