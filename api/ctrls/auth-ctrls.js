@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const UserModel = require('../modals/User');
+const UserModel = require('../models/User');
 
 const { JWT_SECRET, TOKEN_EXPIRY_TIME } = require('../../env-config');
 

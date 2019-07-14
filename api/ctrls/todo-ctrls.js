@@ -1,4 +1,4 @@
-const PostModel = require('../modals/TodoPost');
+const PostModel = require('../models/TodoPost');
 
 const handlers = {};
 const restrictKeys = 'author message addedDate complete success';
