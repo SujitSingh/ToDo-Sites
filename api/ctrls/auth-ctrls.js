@@ -48,7 +48,7 @@ handlers.signUp = (req, res, next) => {
     }
   } catch(error) {
     res.status(500).send({
-      ...error,
+      message: error.message,
       success: false
     });
   }
@@ -87,7 +87,7 @@ handlers.logIn = (req, res, next) => {
             }
           ).catch(error => {
             res.status(500).send({
-              error: error.message,
+              message: error.message,
               success: false 
             });
           });
@@ -105,7 +105,7 @@ handlers.logIn = (req, res, next) => {
     }
   ).catch(error => {
     res.status(500).send({
-      error: error.message,
+      message: error.message,
       success: false 
     });
   });
@@ -133,7 +133,7 @@ handlers.validateToken = (req, res, next) => {
     }
   } catch(error) {
     res.status(401).send({
-      error: error.message,
+      message: error.message,
       success: false 
     });
   }
