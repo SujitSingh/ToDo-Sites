@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const bcryptjs = require('bcryptjs');
 
 const { SALT_ROUNDS } = require('../../env-config');
 
@@ -17,7 +17,7 @@ UserSchema.pre('save', function(next) {
     next();
   } else {
     // encrypt password before save
-    bcrypt.hash(user.password, SALT_ROUNDS, (err, hash) => {
+    bcryptjs.hash(user.password, SALT_ROUNDS, (err, hash) => {
       if (err) {
         next(err);
       } else {

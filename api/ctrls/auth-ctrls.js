@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt');
+const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const UserModel = require('../models/User');
 
@@ -62,7 +62,7 @@ handlers.logIn = (req, res, next) => {
     user => {
       try {
         if (user) {
-          bcrypt.compare(password, user.password).then(
+          bcryptjs.compare(password, user.password).then(
             match => {
               if (match) {
                 const payload = {
