@@ -1,0 +1,31 @@
+<app-nav></app-nav>
+
+<div class="row container form-card">
+  <div class="col s12">
+    <div class="card">
+      <form #loginForm="ngForm" (ngSubmit)="logIn()">
+        <div class="card-content">
+          <div class="card-title">Log In</div>
+          <div class="input-field">
+            <label for="email" class="active">Email</label>
+            <input id="email" name="email" [(ngModel)]="loginObj.email" placeholder="Email" type="text" required>
+          </div>
+          <div class="input-field">
+            <label for="password" class="active">Password</label>
+            <input id="password" name="password" [(ngModel)]="loginObj.password" placeholder="Password" type="password" required>
+          </div>
+          <label>
+            <input type="checkbox" name="keepLogged" [(ngModel)]="loginObj.keepLogged"
+              [checked]="loginObj.keepLogged" />
+            <span>Keep me logged in</span>
+          </label>
+          <div class="error" *ngIf="loginObj.errorMsg">{{loginObj.errorMsg}}</div>
+        </div>
+        <div class="card-action">
+          <button type="button" class="waves-effect waves-light btn" (click)="logIn()" [disabled]="!loginForm.form.valid">Login</button>
+        </div>
+      </form>
+    </div>
+    <p>Don't have an account? <a routerLink="/signup">Sign Up</a></p>
+  </div>
+</div>

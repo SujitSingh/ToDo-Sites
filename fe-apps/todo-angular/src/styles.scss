@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+
+.form-card {
+  max-width: 350px;
+}
+.card .card-content .card-title {
+  margin-bottom: 25px;
+}
+
+form .error {
+  color: #ff5252;
+  margin-top: 15px;
+}
