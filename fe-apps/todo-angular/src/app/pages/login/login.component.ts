@@ -15,27 +15,32 @@ export class LoginComponent implements OnInit {
     errorMsg: ''
   };
 
-  constructor(private auth: AuthService, private router: Router) { }
+  constructor(private authSrvc: AuthService, private router: Router) { }
 
   ngOnInit() { }
 
   logIn() {
-    this.auth.clearStorages();
+    this.authSrvc.clearStorages();
     const rememberLogin = this.loginObj.keepLogged;
     const loginObj = {
       email: this.loginObj.email,
       password: this.loginObj.password,
     };
-    this.auth.logIn(loginObj).subscribe(
+    this.authSrvc.logIn(loginObj).subscribe(
       login => {
         delete login.success;
-        this.auth.loggedUser = login;
-        this.auth.storeLoggedUser(login, rememberLogin);
+        this.authSrvc.loggedUser = login;
+        this.authSrvc.storeLoggedUser(login, rememberLogin);
+        this.navigateToHome();
       },
       error => {
         this.loginObj.errorMsg = error.error.message;
       }
     );
+  }
+
+  navigateToHome() {
+    this.router.navigate(['home']);
   }
 
 }

@@ -1,5 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
+const helmet = require('helmet')
 const app = express();
 const { PORT, DB_PATH } = require('./env-config');
 
@@ -15,11 +17,8 @@ const authCtrls = require('./api/ctrls/auth-ctrls');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+app.use(cors());
+app.use(helmet());
 
 app.use('/api/auth', authRoutes);
 app.use('/api/todo', authCtrls.validateToken, todoRoutes);

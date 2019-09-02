@@ -1,5 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 
+.row {
+  margin-bottom: unset;
+}
+.page-container {
+  max-width: 1000px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin: 0 auto;
+}
+
 .form-card {
   max-width: 350px;
 }
@@ -13,5 +23,21 @@ form {
   }
   .success {
     margin-top: 15px;
+  }
+}
+
+.card {
+  .card-header, .card-content, .card-action {
+    padding: 10px;
+  }
+  .card-header {
+    border-bottom: 1px solid #cfd8dc;
+  }
+  .post-author, .post-date {
+    font-size: 12px;
+    padding: 0;
+  }
+  .post-date {
+    text-align: right;
   }
 }

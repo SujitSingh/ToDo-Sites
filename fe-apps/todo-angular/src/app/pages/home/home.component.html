@@ -1,0 +1,19 @@
+<div class="page-container">
+  <h5 class="posts-title">Available posts</h5>
+  <div class="error red-text" *ngIf="fetchError">{{fetchError}}</div>
+  <div class="posts">
+    <div class="card" *ngFor="let post of userPosts">
+      <div class="row card-header blue-grey lighten-5">
+        <div class="post-author col s6">
+          Added by - <span class="grey-text text-darken-2">{{post.author}}</span>
+        </div>
+        <div class="post-date col s6">
+          <span class="grey-text text-darken-2">{{post.addedDate|date:"d MMM, yyyy"}}</span>
+        </div>
+      </div>
+      <div class="card-content">
+        <p>{{post.message}}</p>
+      </div>
+    </div>
+  </div>
+</div>

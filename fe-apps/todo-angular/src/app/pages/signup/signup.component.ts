@@ -17,7 +17,7 @@ export class SignupComponent implements OnInit {
     successMsg: ''
   };
 
-  constructor(private auth: AuthService) { }
+  constructor(private authSrvc: AuthService) { }
 
   ngOnInit() { }
 
@@ -31,7 +31,7 @@ export class SignupComponent implements OnInit {
         password: this.signupObj.password,
         isAdmin: this.signupObj.isAdmin,
       };
-      this.auth.signUp(registerObj).subscribe(
+      this.authSrvc.signUp(registerObj).subscribe(
         signed => {
           this.resetSignupForm();
           this.signupObj.successMsg = signed.message;
