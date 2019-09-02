@@ -13,7 +13,8 @@ export class SignupComponent implements OnInit {
     password: '',
     rePassword: '',
     isAdmin: false,
-    errorMsg: ''
+    errorMsg: '',
+    successMsg: ''
   };
 
   constructor(private auth: AuthService) { }
@@ -22,23 +23,31 @@ export class SignupComponent implements OnInit {
 
   signUp() {
     if (this.signupObj.password === this.signupObj.rePassword) {
-      const signupObj = {
+      this.signupObj.successMsg = '';
+      this.signupObj.errorMsg = '';
+      const registerObj = {
         email: this.signupObj.email,
         name: this.signupObj.name,
         password: this.signupObj.password,
         isAdmin: this.signupObj.isAdmin,
       };
-      this.auth.signUp(signupObj).subscribe(
+      this.auth.signUp(registerObj).subscribe(
         signed => {
-          console.log(signed);
+          this.resetSignupForm();
+          this.signupObj.successMsg = signed.message;
         },
         error => {
-          console.log(error);
           this.signupObj.errorMsg = error.error.message;
         }
       );
     } else {
       this.signupObj.errorMsg = 'Please enter matching passwords';
     }
+  }
+
+  resetSignupForm() {
+    Object.keys(this.signupObj).forEach(key => {
+      this.signupObj[key] = '';
+    });
   }
 }

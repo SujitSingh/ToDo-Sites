@@ -20,16 +20,19 @@ export class LoginComponent implements OnInit {
   ngOnInit() { }
 
   logIn() {
+    this.auth.clearStorages();
+    const rememberLogin = this.loginObj.keepLogged;
     const loginObj = {
       email: this.loginObj.email,
       password: this.loginObj.password,
     };
     this.auth.logIn(loginObj).subscribe(
       login => {
-        console.log(login);
+        delete login.success;
+        this.auth.loggedUser = login;
+        this.auth.storeLoggedUser(login, rememberLogin);
       },
       error => {
-        console.log(error);
         this.loginObj.errorMsg = error.error.message;
       }
     );

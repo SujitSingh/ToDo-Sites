@@ -19,10 +19,10 @@
               [checked]="loginObj.keepLogged" />
             <span>Keep me logged in</span>
           </label>
-          <div class="error" *ngIf="loginObj.errorMsg">{{loginObj.errorMsg}}</div>
+          <div class="error red-text" *ngIf="loginObj.errorMsg">{{loginObj.errorMsg}}</div>
         </div>
         <div class="card-action">
-          <button type="button" class="waves-effect waves-light btn" (click)="logIn()" [disabled]="!loginForm.form.valid">Login</button>
+          <button type="submit" class="waves-effect waves-light btn" [disabled]="!loginForm.form.valid">Login</button>
         </div>
       </form>
     </div>
