@@ -8,37 +8,32 @@ import { PostsService } from 'src/app/services/posts.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  ownPosts: Boolean;
   userPosts = [];
   fetchError = '';
 
   constructor(private authSrvc: AuthService, private postsSrvc: PostsService) { }
 
   ngOnInit() {
-    this.loadPosts();
+    this.ownPosts = true;
+    this.getPosts();
   }
 
-  loadPosts() {
+  getPosts() {
     this.fetchError = '';
-    this.postsSrvc.getUserPosts().subscribe(
+    let getPostsFunc;
+    if (this.ownPosts) {
+      getPostsFunc = this.postsSrvc.getUserPosts;
+    } else {
+      getPostsFunc = this.postsSrvc.getAllUsersPosts;
+    }
+    getPostsFunc().subscribe(
       posts => {
         this.userPosts.length = 0;
         this.userPosts = posts.posts || [];
         if (!this.userPosts.length) {
           this.fetchError = 'No available post';
         }
-      },
-      error => {
-        this.fetchError = error.error && error.error.message || 'Failed to fetch data';
-      }
-    );
-  }
-
-  loadAllPosts() {
-    this.fetchError = '';
-    this.postsSrvc.getAllUsersPosts().subscribe(
-      posts => {
-        this.userPosts.length = 0;
-        this.userPosts = posts.posts;
       },
       error => {
         this.fetchError = error.error && error.error.message || 'Failed to fetch data';

@@ -40,13 +40,17 @@ handlers.getUserPosts = (req, res, next) => {
   });
 }
 
-handlers.getItem = (req, res, next) => {
+handlers.getItem = async (req, res, next) => {
   const userId = req.decoded.id;
   const id = req.params.id;
-  PostModel.findOne({
-    '_id': id,
-    author: userId
-   }, restrictKeys).then(
+  let lookupObj = {};
+  if (req.decoded.isAdmin) {
+    // for admin user
+    lookupObj = { '_id': id };
+  } else {
+    lookupObj = { '_id': id, author: userId };
+  }
+  PostModel.findOne(lookupObj, restrictKeys).then(
     result => {
       res.send({
         post: result,
@@ -87,7 +91,14 @@ handlers.addItem = (req, res, next) => {
 handlers.updateItem = (req, res, next) => {
   const userId = req.decoded ? req.decoded.id || '' : '';
   const id = req.params.id;
-  PostModel.findOneAndUpdate({ '_id': id, author: userId },
+  let lookupObj = {};
+  if (req.decoded.isAdmin) {
+    // for admin user
+    lookupObj = { '_id': id };
+  } else {
+    lookupObj = { '_id': id, author: userId };
+  }
+  PostModel.findOneAndUpdate(lookupObj,
     { $set: {
         message: req.body.message,
         complete: req.body.complete,

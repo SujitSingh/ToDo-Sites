@@ -2,7 +2,7 @@
   <h5 class="posts-title"><span *ngIf="!postId">Add</span> <span *ngIf="postId">Edit</span> post</h5>
   <div class="error red-text" *ngIf="pageErrorMsg">{{pageErrorMsg}}</div>
   <div class="success green-text" *ngIf="pageSuccessMsg">{{pageSuccessMsg}}</div>
-  <div class="posts">
+  <div class="posts" *ngIf="!postId || (postId && postObj && postObj._id)">
     <div class="card">
       <div *ngIf="postId" class="row card-header blue-grey lighten-5">
         <div class="post-author col s6">

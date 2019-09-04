@@ -15,12 +15,12 @@ export class PostsService {
     return this.http.get(api);
   }
 
-  getUserPosts(): Observable<any> {
+  getUserPosts = (): Observable<any> => {
     const api = this.dataSrvc.appPath + '/api/todo/posts';
     return this.http.get(api);
   }
 
-  getAllUsersPosts(): Observable<any> {
+  getAllUsersPosts = (): Observable<any> => {
     const api = this.dataSrvc.appPath + '/api/todo/all';
     return this.http.get(api);
   }

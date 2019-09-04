@@ -7,6 +7,6 @@ export class DataService {
   appPath = '';
 
   constructor() {
-    this.appPath = 'http://127.0.0.1:3240' 
+    this.appPath = 'http://127.0.0.1:3240';
   }
 }
