@@ -5,21 +5,23 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { NavComponent } from './components/nav/nav.component';
+import { HomeComponent } from './pages/home/home.component';
+import { PostComponent } from './pages/post/post.component';
 import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
-import { NavComponent } from './components/nav/nav.component';
 import { LogoutComponent } from './pages/logout/logout.component';
-import { HomeComponent } from './pages/home/home.component';
 import { TokenInterceptor } from './services/token.interceptor';
 
 @NgModule({
   declarations: [
     AppComponent,
+    NavComponent,
+    HomeComponent,
+    PostComponent,
     LoginComponent,
     SignupComponent,
-    NavComponent,
     LogoutComponent,
-    HomeComponent
   ],
   imports: [
     BrowserModule,

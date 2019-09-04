@@ -5,7 +5,7 @@ const helmet = require('helmet')
 const app = express();
 const { PORT, DB_PATH } = require('./env-config');
 
-mongoose.connect(DB_PATH, { useNewUrlParser: true }).then(
+mongoose.connect(DB_PATH, { useNewUrlParser: true, useFindAndModify: false }).then(
   success => { console.log('DB connected') },
   err => { console.log('DB connection error') },
 );

@@ -92,7 +92,7 @@ handlers.updateItem = (req, res, next) => {
         message: req.body.message,
         complete: req.body.complete,
     } },
-    { returnOriginal: false }
+    { new: true }
   ).then (
     result => {
       if (result) {

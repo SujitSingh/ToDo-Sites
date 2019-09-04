@@ -2,7 +2,7 @@
   <h5 class="posts-title">Available posts</h5>
   <div class="error red-text" *ngIf="fetchError">{{fetchError}}</div>
   <div class="posts">
-    <div class="card" *ngFor="let post of userPosts">
+    <div class="card" *ngFor="let post of userPosts; let index = index">
       <div class="row card-header blue-grey lighten-5">
         <div class="post-author col s6">
           Added by - <span class="grey-text text-darken-2">{{post.author}}</span>
@@ -13,6 +13,15 @@
       </div>
       <div class="card-content">
         <p>{{post.message}}</p>
+        <p class="grey-text">Complete: 
+          <span *ngIf="post.complete" class="green-text">Yes</span>
+          <span *ngIf="!post.complete" class="red-text">No</span>
+        </p>
+        <p *ngIf="post.actionMessage" [ngClass]="{'red-text': post.actionMessage.type == 'Error', 'green-text': post.actionMessage.type == 'Success'}">{{post.actionMessage.message}}</p>
+      </div>
+      <div class="card-action">
+        <a [routerLink]="['/edit', post._id]" class="waves-effect waves-light btn-small">Edit</a>
+        <a (click)="deletePost(post._id, index)" class="waves-effect waves-light btn-small red lighten-2">Delete</a>
       </div>
     </div>
   </div>

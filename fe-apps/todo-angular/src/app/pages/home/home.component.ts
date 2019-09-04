@@ -22,7 +22,10 @@ export class HomeComponent implements OnInit {
     this.postsSrvc.getUserPosts().subscribe(
       posts => {
         this.userPosts.length = 0;
-        this.userPosts = posts.posts;
+        this.userPosts = posts.posts || [];
+        if (!this.userPosts.length) {
+          this.fetchError = 'No available post';
+        }
       },
       error => {
         this.fetchError = error.error && error.error.message || 'Failed to fetch data';
@@ -41,6 +44,29 @@ export class HomeComponent implements OnInit {
         this.fetchError = error.error && error.error.message || 'Failed to fetch data';
       }
     );
+  }
+
+  deletePost(postId, index) {
+    if (postId && index > -1) {
+      delete this.userPosts[index].actionMessage;
+      this.postsSrvc.deletePost(postId).subscribe(
+        deleted => {
+          this.userPosts[index].actionMessage = {
+            message: 'Item succesfully deleted.',
+            type: 'Success'
+          }
+          setTimeout(() => {
+            this.userPosts.splice(index, 1); // remove element after 2 second
+          }, 2000);
+        },
+        error => {
+          this.userPosts[index].actionMessage = {
+            message: error.error.message || 'Failed to delete',
+            type: 'Error'
+          }
+        }
+      );
+    }
   }
 
 }
