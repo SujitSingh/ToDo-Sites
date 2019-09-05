@@ -15,7 +15,11 @@ export class LoginComponent implements OnInit {
     errorMsg: ''
   };
 
-  constructor(private authSrvc: AuthService, private router: Router) { }
+  constructor(private authSrvc: AuthService, private router: Router) {
+    if (this.authSrvc.getLoggedUser()) {
+      this.router.navigate(['/home']);
+    }
+  }
 
   ngOnInit() { }
 

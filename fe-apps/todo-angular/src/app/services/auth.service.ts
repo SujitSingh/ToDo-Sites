@@ -52,7 +52,7 @@ export class AuthService {
   }
 
   logoutUser() {
-    this.loggedUser = undefined;
+    this.loggedUser = null;
     this.clearStorages();
   }
 

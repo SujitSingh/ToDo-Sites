@@ -10,7 +10,6 @@ import { HomeComponent } from './pages/home/home.component';
 import { PostComponent } from './pages/post/post.component';
 import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
-import { LogoutComponent } from './pages/logout/logout.component';
 import { TokenInterceptor } from './services/_helpers/token.interceptor';
 import { ErrorInterceptor } from './services/_helpers/error.interceptor';
 
@@ -22,7 +21,6 @@ import { ErrorInterceptor } from './services/_helpers/error.interceptor';
     PostComponent,
     LoginComponent,
     SignupComponent,
-    LogoutComponent,
   ],
   imports: [
     BrowserModule,
