@@ -5,11 +5,12 @@ import { PostComponent } from './pages/post/post.component';
 import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { LogoutComponent } from './pages/logout/logout.component';
+import { AuthGuard } from './services/_helpers/auth.guard';
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent },
-  { path: 'add', component: PostComponent },
-  { path: 'edit/:postId', component: PostComponent },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'add', component: PostComponent, canActivate: [AuthGuard] },
+  { path: 'edit/:postId', component: PostComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'logout', component: LogoutComponent },

@@ -11,7 +11,8 @@ import { PostComponent } from './pages/post/post.component';
 import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { LogoutComponent } from './pages/logout/logout.component';
-import { TokenInterceptor } from './services/token.interceptor';
+import { TokenInterceptor } from './services/_helpers/token.interceptor';
+import { ErrorInterceptor } from './services/_helpers/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,11 @@ import { TokenInterceptor } from './services/token.interceptor';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
       multi: true
     }
   ],
