@@ -1,7 +1,7 @@
 <div class="page-container">
   <h5 class="posts-title">
     Available posts
-    <span *ngIf="authSrvc.loggedUser && authSrvc.loggedUser.isAdmin">
+    <span *ngIf="authSrvc.loggedUser.value && authSrvc.loggedUser.value.isAdmin">
       (<a (click)="ownPosts = !ownPosts; getPosts()" href="javascript:void(0)" style="text-decoration: underline;">
         <span *ngIf="ownPosts">Own</span>
         <span *ngIf="!ownPosts">All</span> 
@@ -30,7 +30,7 @@
       </div>
       <div class="card-action">
         <a [routerLink]="['/edit', post._id]" class="waves-effect waves-light btn-small">Edit</a>
-        <a (click)="deletePost(post._id, index)" *ngIf="authSrvc.loggedUser.id === post.author" class="waves-effect waves-light btn-small red lighten-2">Delete</a>
+        <a (click)="deletePost(post._id, index)" *ngIf="authSrvc.loggedUser.value.id === post.author" class="waves-effect waves-light btn-small red lighten-2">Delete</a>
       </div>
     </div>
   </div>

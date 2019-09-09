@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -33,7 +33,6 @@ export class LoginComponent implements OnInit {
     this.authSrvc.logIn(loginObj).subscribe(
       login => {
         delete login.success;
-        this.authSrvc.loggedUser = login;
         this.authSrvc.storeLoggedUser(login, rememberLogin);
         this.navigateToHome();
       },

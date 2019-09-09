@@ -1,24 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { DataService } from './data.service';
-
-interface User {
-  id: String;
-  name: String;
-  email: String;
-  isAdmin: Boolean;
-  token: String
-}
+import { User } from '../models/User';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   loggedUserKey = 'loggedUser';
-  loggedUser: User;
+  loggedUser = new BehaviorSubject<User>(null);
 
-  constructor(private dataSrvc: DataService, private http: HttpClient) { }
+  constructor(private dataSrvc: DataService, private http: HttpClient) {
+    this.loggedUser.next(this.getLoggedUser());
+  }
 
   logIn(loginObj): Observable<any> {
     const api = this.dataSrvc.appPath + '/api/auth/login';
@@ -39,20 +34,24 @@ export class AuthService {
       // in sessionStorage
       sessionStorage.setItem(this.loggedUserKey, JSON.stringify(loginObj));
     }
+    this.loggedUser.next(loginObj);
   }
 
-  getLoggedUser() {
-    if (this.loggedUser) { return this.loggedUser; }
-    // check in sessionStorage
-    this.loggedUser = JSON.parse(sessionStorage.getItem(this.loggedUserKey));
-    if (this.loggedUser) { return this.loggedUser; }
+  getLoggedUser(): User {
+    if (this.loggedUser.value) { return this.loggedUser.getValue(); }
+    let userDetails: User;
     // check in localStorage
-    this.loggedUser = JSON.parse(localStorage.getItem(this.loggedUserKey));
-    return this.loggedUser;
+    userDetails = JSON.parse(localStorage.getItem(this.loggedUserKey));
+    if (!userDetails) {
+      // check in sessionStorage
+      userDetails = JSON.parse(sessionStorage.getItem(this.loggedUserKey));
+    }
+    if (userDetails) { this.loggedUser.next(userDetails) }
+    return this.loggedUser.getValue();
   }
 
   logoutUser() {
-    this.loggedUser = null;
+    this.loggedUser.next(null);
     this.clearStorages();
   }
 
