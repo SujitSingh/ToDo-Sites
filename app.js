@@ -12,6 +12,7 @@ mongoose.connect(DB_PATH, { useNewUrlParser: true, useFindAndModify: false }).th
 
 const authRoutes = require('./api/routes/auth-routes');
 const todoRoutes = require('./api/routes/todo-routes');
+const userRoutes = require('./api/routes/user-routes');
 const authCtrls = require('./api/ctrls/auth-ctrls');
 
 app.use(express.json());
@@ -22,6 +23,7 @@ app.use(helmet());
 
 app.use('/api/auth', authRoutes);
 app.use('/api/todo', authCtrls.validateToken, todoRoutes);
+app.use('/api/user', authCtrls.validateToken, userRoutes);
 
 app.use((req, res, next) => {
   res.status(404).json({
