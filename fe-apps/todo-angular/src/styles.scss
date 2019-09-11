@@ -1,1 +1,57 @@
 /* You can add global styles to this file, and also import other style files */
+
+.row {
+  margin-bottom: unset;
+}
+.page-container {
+  max-width: 800px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin: 0 auto;
+}
+
+.input-field {
+  textarea {
+    overflow-y: auto;
+    height: unset;
+    min-height: 4em;
+    margin-top: 10px;
+  }
+}
+
+.form-card {
+  max-width: 350px;
+}
+.card .card-content .card-title {
+  margin-bottom: 25px;
+}
+
+form {
+  .error {
+    margin-top: 15px;
+  }
+  .success {
+    margin-top: 15px;
+  }
+}
+
+.card {
+  .card-header, .card-content, .card-action {
+    padding: 10px;
+  }
+  .card-header {
+    border-bottom: 1px solid #cfd8dc;
+  }
+  .post-author, .post-date {
+    font-size: 12px;
+    padding: 0;
+  }
+  .post-date {
+    text-align: right;
+  }
+  .card-action {
+    a {
+      margin-right: 5px;
+    }
+  }
+}
