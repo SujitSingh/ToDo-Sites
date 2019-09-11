@@ -3,15 +3,16 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { DataService } from './data.service';
 import { User } from '../models/User';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  loggedUserKey = 'loggedUser';
+  private loggedUserKey = 'loggedUser';
   loggedUser = new BehaviorSubject<User>(null);
 
-  constructor(private dataSrvc: DataService, private http: HttpClient) {
+  constructor(private dataSrvc: DataService, private http: HttpClient, private userSrvc: UserService) {
     this.loggedUser.next(this.getLoggedUser());
   }
 
@@ -52,6 +53,7 @@ export class AuthService {
 
   logoutUser() {
     this.loggedUser.next(null);
+    this.userSrvc.clearUsers();
     this.clearStorages();
   }
 

@@ -14,7 +14,7 @@
     <div class="card" *ngFor="let post of userPosts; let index = index">
       <div class="row card-header blue-grey lighten-5">
         <div class="post-author col s6">
-          Added by - <span class="grey-text text-darken-2">{{post.author}}</span>
+          Added by - <span class="grey-text text-darken-2">{{post.author | userName}}</span>
         </div>
         <div class="post-date col s6">
           <span class="grey-text text-darken-2">{{post.addedDate|date:"d MMM, yyyy"}}</span>

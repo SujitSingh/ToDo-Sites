@@ -6,7 +6,7 @@
     <div class="card">
       <div *ngIf="postId" class="row card-header blue-grey lighten-5">
         <div class="post-author col s6">
-          Added by - <span class="grey-text text-darken-2">{{postObj.author}}</span>
+          Added by - <span class="grey-text text-darken-2">{{postObj.author | userName}}</span>
         </div>
         <div class="post-date col s6">
           <span class="grey-text text-darken-2">{{postObj.addedDate|date:"d MMM, yyyy"}}</span>

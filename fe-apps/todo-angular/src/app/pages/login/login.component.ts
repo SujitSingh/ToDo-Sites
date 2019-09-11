@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,7 @@ export class LoginComponent implements OnInit {
     errorMsg: ''
   };
 
-  constructor(private authSrvc: AuthService, private router: Router) {
+  constructor(private authSrvc: AuthService, private userSrvc: UserService, private router: Router) {
     if (this.authSrvc.getLoggedUser()) {
       this.router.navigate(['/home']);
     }
@@ -34,6 +35,7 @@ export class LoginComponent implements OnInit {
       login => {
         delete login.success;
         this.authSrvc.storeLoggedUser(login, rememberLogin);
+        this.userSrvc.getUsersDetails();
         this.navigateToHome();
       },
       error => {

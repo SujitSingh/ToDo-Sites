@@ -12,6 +12,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { TokenInterceptor } from './services/_helpers/token.interceptor';
 import { ErrorInterceptor } from './services/_helpers/error.interceptor';
+import { UserNamePipe } from './pipe/user-name.pipe';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { ErrorInterceptor } from './services/_helpers/error.interceptor';
     PostComponent,
     LoginComponent,
     SignupComponent,
+    UserNamePipe,
   ],
   imports: [
     BrowserModule,
