@@ -3,9 +3,11 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { PostsService } from 'src/app/services/posts.service';
 
 interface Post {
-  _id: String;
-  message: String;
+  _id: string;
+  author: string;
+  message: string;
   complete: Boolean;
+  addedDate: Date;
 };
 
 @Component({
@@ -20,7 +22,7 @@ export class PostComponent implements OnInit {
   pageErrorMsg: String;
   pageSuccessMsg: String;
 
-  constructor(private route: ActivatedRoute, private postSrvc: PostsService, private router: Router) { }
+  constructor(private route: ActivatedRoute, public postSrvc: PostsService, private router: Router) { }
 
   ngOnInit() {
     this.postId = this.route.snapshot.paramMap.get('postId');

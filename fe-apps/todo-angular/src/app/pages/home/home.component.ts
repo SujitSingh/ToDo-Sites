@@ -12,7 +12,7 @@ export class HomeComponent implements OnInit {
   userPosts = [];
   fetchError = '';
 
-  constructor(private authSrvc: AuthService, private postsSrvc: PostsService) { }
+  constructor(public authSrvc: AuthService, private postsSrvc: PostsService) { }
 
   ngOnInit() {
     this.ownPosts = true;
