@@ -1,0 +1,29 @@
+<div class="row container form-card">
+  <div class="col s12">
+    <div class="card">
+      <form @submit.prevent="logIn()">
+        <div class="card-content">
+          <div class="card-title">Log In</div>
+          <div class="input-field">
+            <label for="email" class="active">Email</label>
+            <input id="email" name="email" v-model="loginObj.email" placeholder="Email" type="text" required>
+          </div>
+          <div class="input-field">
+            <label for="password" class="active">Password</label>
+            <input id="password" name="password" v-model="loginObj.password" placeholder="Password" type="password" required>
+          </div>
+          <label>
+            <input type="checkbox" name="keepLogged" v-model="loginObj.keepLogged"
+              :checked="loginObj.keepLogged" />
+            <span>Keep me logged in</span>
+          </label>
+          <div class="error red-text" v-if="loginObj.errorMsg">{{loginObj.errorMsg}}</div>
+        </div>
+        <div class="card-action">
+          <button type="submit" class="waves-effect waves-light btn" :disabled="disabledLogin">Login</button>
+        </div>
+      </form>
+    </div>
+    <p>Don't have an account? <router-link to="/signup">Sign Up</router-link></p>
+  </div>
+</div>

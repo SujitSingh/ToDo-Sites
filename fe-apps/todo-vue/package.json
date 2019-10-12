@@ -11,7 +11,11 @@
     "core-js": "^2.6.5",
     "vue": "^2.6.10",
     "vue-class-component": "^7.0.2",
-    "vue-property-decorator": "^8.1.0"
+    "vue-property-decorator": "^8.1.0",
+    "vue-router": "^3.1.3",
+    "vuelidate": "^0.7.4",
+    "vuelidate-property-decorators": "^1.0.27",
+    "vuex": "^3.1.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.11.0",
