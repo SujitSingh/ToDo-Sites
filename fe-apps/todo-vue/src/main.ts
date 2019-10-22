@@ -13,10 +13,14 @@ Vue.use(Vuex);
 
 import '../../common/css/materialize.min.css';
 
+// axios.defaults.baseURL = 'http://127.0.0.1:3240'; // can have a config
+
 const router = new VueRouter({
   routes: [
     { path: '/login', component: Login },
-    { path: '/signup', component: Signup }
+    { path: '/signup', component: Signup },
+    { path: '/', redirect: '/login' },
+    { path: '*', redirect: '/login' },
   ]
 });
 
